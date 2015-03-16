@@ -7,23 +7,15 @@ class MainHandler(tornado.web.RequestHandler):
     def content_function(cls, func):
         cls.process_request = func
 
-    def delete(self):
-        result = "YOU MADE A DELETE"
-        self.write(result)
-
-    def get(self):
-        result = "YOU MADE A GET"
-        self.write(result)
+    @staticmethod
+    def process_request():
+        pass
 
     def post(self):
-        result = self.process_request(self.request.body)
+        result = self.process_request(body=self.request.body)
         self.write(result)
 
-    def put(self):
-        result = "YOU MADE A PUT"
-        self.write(result)
-
-def main(func, port):
+def main(port, func):
     """ This function starts up the tornado web server """
     MainHandler.content_function(func)
     application = tornado.web.Application([(r"/", MainHandler)])
