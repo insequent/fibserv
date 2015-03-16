@@ -9,11 +9,13 @@ To run, simply run ``./api.py`` or alternatively ``deploy/run``. The program
 defaults to port 8888 and only accepts POSTS. To access, you can run:
 
 ::
+
     curl localhost:8888 -d "5"
 
 And assuming all is well, you'll receive the following in response:
 
 ::
+
     HTTP/1.0 200 OK
     Content-Type: application/json
     Content-Length: 15
