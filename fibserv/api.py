@@ -10,8 +10,10 @@ from fibserv.content import Fibonacci
 class WebEngineImportError(ImportError):
     pass
 
+
 class InvalidBodyData(Exception):
     pass
+
 
 def main():
     """ This is where everything is initialized """
@@ -24,23 +26,24 @@ def main():
                       "engine": "flask"}
     cfg.read("/etc/fibserv/fibserv.conf")
 
-
     port = cfg.get("WebServer", "port")
     engine = cfg.get("WebServer", "engine")
 
     if engine in ENGINES:
-        web_engine = import_module("fibserv.engines.{}_engine".format(engine)) 
+        web_engine = import_module("fibserv.engines.{}_engine".format(engine))
     else:
-        raise(WebEngineImportError("Could not import {} as a web engine. Please "
-                                   "ensure the file exists in the "
-                                   "fibserv/engines/ directory.".format(engine)))
+        raise(WebEngineImportError("Could not import {} as a web engine. "
+                                   "Please ensure the file exists in the "
+                                   "fibserv/engines/ directory."
+                                   "".format(engine)))
 
     web_engine.main(port, process_request)
     return
 
+
 # NOTE: Need *args here to catch self on class methods
 def process_request(*args, body=None):
-    """ 
+    """
     process_request processes the request body. It takes in the body as a raw
     string and expects it to be JSON, then returns a JSON string as well.
     """

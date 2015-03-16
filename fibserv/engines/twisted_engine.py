@@ -7,7 +7,8 @@ from twisted.internet import reactor
 from twisted.web.server import Site
 from twisted.web.resource import Resource
 
-class Content(Resource):
+
+class MainHandler(Resource):
     """ Single content generating resource that takes a function as input """
     isLeaf = True
 
@@ -19,9 +20,10 @@ class Content(Resource):
         result = self.func(body=request.content.read())
         return result
 
+
 def main(port, func):
     """ This function starts up the twisted web server """
-    resource = ContentServer(func)
+    resource = MainHandler(func)
     factory = Site(resource)
     reactor.listenTCP(port, factory)
     reactor.run()

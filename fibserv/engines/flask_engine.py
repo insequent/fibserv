@@ -9,6 +9,7 @@ from flask import Response
 app = Flask(__name__)
 log = logging.getLogger(__name__)
 
+
 def main(port, func):
     """ This function starts up the flask web server """
 
@@ -23,4 +24,4 @@ def main(port, func):
                           "'{}'".format(data))
         return Response(result, mimetype='application/json')
 
-    app.run(port=int(port)) # Flask requires int here
+    app.run(port=int(port))  # Flask requires int here
