@@ -4,6 +4,7 @@ import logging
 
 from flask import Flask
 from flask import request
+from flask import Response
 
 app = Flask(__name__)
 log = logging.getLogger(__name__)
@@ -20,6 +21,6 @@ def main(port, func):
         except:
             log.exception("func failed to execute with "
                           "'{}'".format(data))
-        return result
+        return Response(result, mimetype='application/json')
 
     app.run(port=int(port)) # Flask requires int here
