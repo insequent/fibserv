@@ -33,6 +33,7 @@ setup(
     packages=['fibserv',
               'fibserv.content',
               'fibserv.engines'],
+    data_files=[('etc/fibserv', ['etc/fibserv/fibserv.conf'])],
     classifiers=( 
         'Development Status :: 3 - Alpha',
         'Environment :: Console',
