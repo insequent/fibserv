@@ -2,14 +2,10 @@
 
 from configparser import ConfigParser
 import json
-import logging
 from importlib import import_module
 
-# TODO: Change this to fibserv.content once packaged
-from content import Fibonacci
+from fibserv.content import Fibonacci
 
-
-log = logging.getLogger(__name__)
 
 class WebEngineImportError(ImportError):
     pass
@@ -19,22 +15,21 @@ class InvalidBodyData(Exception):
 
 def main():
     """ This is where everything is initialized """
-    # TODO: This should be dynamically loaded from the engines directory
+    # TODO: This should be dynamically loaded from the engines directory.
+    #       However, this should wait until twisted works or is removed.
     ENGINES = ["tornado", "flask"]
 
     cfg = ConfigParser()
     cfg["DEFAULT"] = {"port": "8888",
                       "engine": "flask"}
-    # TODO: This would end up in /etc/fibserv once packaged
-    cfg.read("fibserv.conf")
+    cfg.read("/etc/fibserv/fibserv.conf")
 
 
     port = cfg.get("WebServer", "port")
     engine = cfg.get("WebServer", "engine")
 
     if engine in ENGINES:
-        # TODO: Change this to "fibserv.engines.{}_engine" once packaged
-        web_engine = import_module("engines.{}_engine".format(engine)) 
+        web_engine = import_module("fibserv.engines.{}_engine".format(engine)) 
     else:
         raise(WebEngineImportError("Could not import {} as a web engine. Please "
                                    "ensure the file exists in the "

@@ -18,11 +18,29 @@ limitations under the License.
 
 from setuptools import setup
 
+with open('README.rst') as f:
+    readme = f.read()
 
 setup(
-    name='FibonacciServer',
+    name='fibserv',
     version='0.1',
-    packages=['fibserv',],
+    author='Josh Conant',
+    author_email='deathbeforedishes@gmail.com',
+    url='http://github.com/insequent/fibserv',
     license='Apache License, Version 2.0',
-    long_description=open('README.md').read(),
+    description='A simple web service with swappable content and backend',
+    long_description=readme,
+    packages=['fibserv',
+              'fibserv.content',
+              'fibserv.engines'],
+    classifiers=( 
+        'Development Status :: 3 - Alpha',
+        'Environment :: Console',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: Apache Software License',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python :: 3',
+        'Topic :: Software Development :: Testing'
+    )
+
 )
