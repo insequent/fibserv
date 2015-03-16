@@ -23,7 +23,7 @@ def main():
 
     cfg = ConfigParser()
     cfg["DEFAULT"] = {"port": "8888",
-                      "engine": "flask"}
+                      "engine": "tornado"}
     cfg.read("/etc/fibserv/fibserv.conf")
 
     port = cfg.get("WebServer", "port")
