@@ -32,6 +32,11 @@ def main():
 
     if engine in ENGINES:
         web_engine = import_module("fibserv.engines.{}_engine".format(engine))
+    # TODO: Remove this elif once twisted works with Python 3 or is removed
+    elif engine == "twisted":
+        raise(WebEngineImportError('"twisted" cannot be chosen as a web '
+                                   'engine due to it not yet being in Python'
+                                   '3. *sad panda*'))
     else:
         raise(WebEngineImportError("Could not import {} as a web engine. "
                                    "Please ensure the file exists in the "
