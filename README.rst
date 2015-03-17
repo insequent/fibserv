@@ -2,12 +2,13 @@
 fibserv
 =======
 
-This is an example web service, that accepts a number and returns with that number
-of elements in a Fibonacci sequence, starting with 0.  It utilizes a swappable 
-web engine back-end allowing flexibility in implementation.
+This is an example web service, that accepts a number and returns with that
+number of elements in a Fibonacci sequence, starting with 0.  It utilizes a
+swappable web engine back-end allowing flexibility in implementation.
 
-To run, simply run ``deploy/run``. The program defaults to port 8888, the Tornado
-engine, and only accepts POSTs. To access it, you can simply run:
+To run, simply run ``./deploy/run`` from the repo. The program defaults to
+port 8888, the Tornado engine, and only accepts POSTs. To access it, you can
+simply run:
 
 ::
 
@@ -48,8 +49,8 @@ parameters:
 be the body of the request.
 
 Currently, the frameworks created are Flask, Tornado, and Twisted. However,
-Twisted currently does not have the ability to run on Python 3, and is only 
-included on the off chance:
+Twisted currently does not have the ability to run on Python 3, and the engine
+is only included on the off-chance that one of the following becomes true:
 
 - Twisted catches up and publishes a Python 3 module
 - Someone wishes to run a Python 2 version of fibserv
