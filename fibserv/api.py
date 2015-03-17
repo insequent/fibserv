@@ -18,7 +18,7 @@ class RequestBodyError(TypeError):
 def main():
     """ This is where everything is initialized """
     # TODO: This should be dynamically loaded from the engines directory.
-    #       However, this should wait until twisted works or is removed.
+    #       However, that must wait until twisted works or is removed.
     ENGINES = ["tornado", "flask"]
 
     cfg = ConfigParser()

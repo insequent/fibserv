@@ -26,7 +26,7 @@ class FibServEnginesTest(test_base.TestBase):
                 def wrapped(*args, **kwargs):
                     return fn()
                 return wrapped
- 
+
         mock_route.side_effect = mock_deco
         mock_response.return_value = "MY RESPONSE"
 
@@ -37,9 +37,12 @@ class FibServEnginesTest(test_base.TestBase):
         self.assertTrue(mock_response.called)
         mock_response.assert_called_with('PASS', mimetype='application/json')
 
-    @mock.patch('fibserv.engines.tornado_engine.tornado.ioloop.IOLoop.instance')
-    @mock.patch('fibserv.engines.tornado_engine.tornado.log.enable_pretty_logging')
-    @mock.patch('fibserv.engines.tornado_engine.tornado.web.Application.listen')
+    @mock.patch('fibserv.engines.tornado_engine.'
+                'tornado.ioloop.IOLoop.instance')
+    @mock.patch('fibserv.engines.tornado_engine.'
+                'tornado.log.enable_pretty_logging')
+    @mock.patch('fibserv.engines.tornado_engine.'
+                'tornado.web.Application.listen')
     def test_tornado_engine(self, mock_listen, mock_log, mock_instance):
         """ For testing fibserv/engines/tornado_engine.py """
         tornado_engine.main(443, lambda **kwargs: "PASS")
