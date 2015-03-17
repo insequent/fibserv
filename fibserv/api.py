@@ -11,7 +11,7 @@ class WebEngineImportError(ImportError):
     pass
 
 
-class InvalidBodyData(Exception):
+class RequestBodyError(TypeError):
     pass
 
 
@@ -24,6 +24,7 @@ def main():
     cfg = ConfigParser()
     cfg["DEFAULT"] = {"port": "8888",
                       "engine": "tornado"}
+    cfg["WebServer"] = dict()
     cfg.read("/etc/fibserv/fibserv.conf")
 
     port = cfg.get("WebServer", "port")
@@ -49,15 +50,16 @@ def process_request(*args, body=None):
     """
     try:
         body_parsed = json.loads(str(body, encoding="UTF-8"))
-    except:
-        raise(InvalidBodyData("'{}' couldn't be parsed as JSON.".format(body)))
+    except TypeError:
+        raise(RequestBodyError("'{}' couldn't be parsed as JSON"
+                               ".".format(body)))
 
     if isinstance(body_parsed, int):
         return bytes(json.dumps(Fibonacci.sequence(body_parsed)),
                      encoding="ASCII")
     else:
-        raise(InvalidBodyData("'{}' is not a single number. Please "
-                              "try again.".format(body_parsed)))
+        raise(RequestBodyError("'{}' is not a single number. Please "
+                               "try again.".format(body_parsed)))
     return
 
 if __name__ == "__main__":

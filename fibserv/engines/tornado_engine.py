@@ -1,11 +1,12 @@
 import tornado.ioloop
+import tornado.log
 import tornado.web
 
 
 class MainHandler(tornado.web.RequestHandler):
     """ Single content generating resource that takes a function as input """
     @classmethod
-    def content_function(cls, func):
+    def apply_content(cls, func):
         cls.process_request = func
 
     @staticmethod
@@ -19,11 +20,12 @@ class MainHandler(tornado.web.RequestHandler):
 
 def main(port, func):
     """ This function starts up the tornado web server """
-    MainHandler.content_function(func)
+    MainHandler.apply_content(func)
+    tornado.log.enable_pretty_logging()
     application = tornado.web.Application([(r"/", MainHandler)])
     application.listen(port)
     tornado.ioloop.IOLoop.instance().start()
 
 
 if __name__ == "__main__":
-    main()
+    main(8888, lambda *args, **kwargs: "IT WORKS!")

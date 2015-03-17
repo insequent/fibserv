@@ -1,5 +1,11 @@
 #!/usr/bin/python3
 
+import os.path
+from pprint import pprint
+from sys import path as PATH
+
+PATH.append(os.path.abspath(os.path.curdir))
+
 from fibserv.api import main
 
 main()
