@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+# -*- coding: utf-8 -*-
 
 from fibserv.content import Fibonacci as fib
 from fibserv.tests import test_base

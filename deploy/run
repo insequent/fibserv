@@ -1,4 +1,8 @@
 #!/usr/bin/python3
+"""
+A quick script to run fibserv from within the repository. From the
+root of the repo, simply run './deploy/run' and off you go!
+"""
 
 import os.path
 from pprint import pprint

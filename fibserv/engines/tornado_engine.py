@@ -1,3 +1,6 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
 import json
 
 import tornado.ioloop
@@ -23,6 +26,7 @@ class MainHandler(tornado.web.RequestHandler):
             self.set_status(400)
             result = bytes(json.dumps(str(e)), encoding="ASCII")
 
+        self.set_header("Content-type", "application/json")
         self.write(result)
 
 

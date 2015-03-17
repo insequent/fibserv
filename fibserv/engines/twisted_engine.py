@@ -1,3 +1,6 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
 """
 Sadly, by switching to python 3, this engine can no longer be used.
 Twisted needs to catch up with the times.
