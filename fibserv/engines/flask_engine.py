@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+import json
 import logging
 
 from flask import Flask
@@ -28,14 +29,17 @@ class MainHandler(object):
 @app.route("/", methods=["POST"])
 def post():
     data = request.get_data()
-    result = MainHandler.process_request(body=data)
+    try:
+        result = MainHandler.process_request(body=data)
+    except TypeError as e:
+        return json.dumps(str(e)), 400, {'content-type': 'application/json'}
     return Response(result, mimetype='application/json')
 
 
 def main(port, func):
     """ This function starts up the flask web server """
     MainHandler.apply_content(func)
-    app.run(port=int(port))  # NOTE: Flask requires an int here
+    app.run(port=int(port))
 
 
 if __name__ == "__main__":

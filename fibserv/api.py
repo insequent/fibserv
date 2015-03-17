@@ -15,6 +15,10 @@ class RequestBodyError(TypeError):
     pass
 
 
+class NegativeCountError(TypeError):
+    pass
+
+
 def main():
     """ This is where everything is initialized """
     # TODO: This should be dynamically loaded from the engines directory.
@@ -23,7 +27,7 @@ def main():
 
     cfg = ConfigParser()
     cfg["DEFAULT"] = {"port": "8888",
-                      "engine": "tornado"}
+                      "engine": "flask"}
     cfg["WebServer"] = dict()
     cfg.read("/etc/fibserv/fibserv.conf")
 
@@ -55,15 +59,20 @@ def process_request(*args, body=None):
     """
     try:
         body_parsed = json.loads(str(body, encoding="UTF-8"))
-    except TypeError:
-        raise(RequestBodyError("'{}' couldn't be parsed as JSON"
-                               ".".format(body)))
+    except:
+        raise(RequestBodyError("{} could not be parsed as JSON."
+                               "".format(body)))
 
     if isinstance(body_parsed, int):
-        return bytes(json.dumps(Fibonacci.sequence(body_parsed)),
-                     encoding="ASCII")
+        if body_parsed < 0:
+            raise(NegativeCountError("'{}' is negative, and alas, Fibonacci "
+                                     "sequences can't count backwards from 0."
+                                     " Please use a positive number."))
+        else:
+            result = Fibonacci.sequence(body_parsed)
+        return bytes(json.dumps(result), encoding="ASCII")
     else:
-        raise(RequestBodyError("'{}' is not a single number. Please "
+        raise(RequestBodyError("{} is not a single number. Please "
                                "try again.".format(body_parsed)))
     return
 

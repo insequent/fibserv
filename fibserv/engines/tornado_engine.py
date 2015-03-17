@@ -1,3 +1,5 @@
+import json
+
 import tornado.ioloop
 import tornado.log
 import tornado.web
@@ -14,7 +16,13 @@ class MainHandler(tornado.web.RequestHandler):
         pass
 
     def post(self):
-        result = self.process_request(body=self.request.body)
+        try:
+            result = self.process_request(body=self.request.body)
+        except TypeError as e:
+            self.clear()
+            self.set_status(400)
+            result = bytes(json.dumps(str(e)), encoding="ASCII")
+
         self.write(result)
 
 
