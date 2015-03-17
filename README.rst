@@ -6,7 +6,7 @@ This is an example web service, that accepts a number and returns with that
 number of elements in a Fibonacci sequence, starting with 0.  It utilizes a
 swappable web engine back-end allowing flexibility in implementation.
 
-To run, simply run ``./deploy/run`` from the repo. The program defaults to
+To start, simply run ``./deploy/run`` from the repo. The program defaults to
 port 8888, the Tornado engine, and only accepts POSTs. To access it, you can
 simply run:
 
@@ -26,6 +26,12 @@ And assuming all is well, you'll receive the following in response:
 
     [0, 1, 1, 2, 3]
 
+Testing
+=======
+
+Tox is fully setup to run the unittests in a sandbox, as well as
+flake8 on all Python files. To start the tests, simply run ``tox``
+while within the repo.
 
 File Layout
 ===========
